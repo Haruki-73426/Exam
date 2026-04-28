@@ -9,10 +9,10 @@ import bean.Teacher;
 import dao.SubjectDao;
 import tool.Action;
 
-public class SubjectCreateAction extends Action {
+public class SubjectUpdateAction extends Action {
 
-@Override
-public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+  @Override
+  public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
     HttpSession session = req.getSession();
     Teacher teacher = (Teacher) session.getAttribute("user");
