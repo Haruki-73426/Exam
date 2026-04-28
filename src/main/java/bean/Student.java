@@ -60,7 +60,7 @@ public class Student implements Serializable {
 	public void setEntYear(int entYear) {
 		this.entYear = entYear;
 	}
-
+	
 	public String getClassNum() {
 		return classNum;
 	}
