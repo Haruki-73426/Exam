@@ -10,7 +10,6 @@ import java.util.List;
 import bean.ClassNum;
 import bean.School;
 
-
 public class ClassNumDao extends Dao {
 
 	public ClassNum get(String class_num, School school) throws Exception {
@@ -32,7 +31,7 @@ public class ClassNumDao extends Dao {
 			ResultSet rSet = statement.executeQuery();
 
 			// 学校Daoを初期化
-			SchoolDao sDao = new SchoolDao();
+			SchoolDao sDao = new SchoolDao(); 
 
 			if (rSet.next()) {
 				// リザルトセットが存在する場合
