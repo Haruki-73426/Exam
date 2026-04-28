@@ -14,37 +14,37 @@ import tool.Action;
 
 public class SubjectUpdateExecuteAction extends Action {
 
-  @Override
-  public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	@Override
+	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-    HttpSession session = req.getSession();
-    Teacher teacher = (Teacher) session.getAttribute("user");
+		HttpSession session = req.getSession();
+		Teacher teacher = (Teacher) session.getAttribute("user");
 
-    String cd = req.getParameter("cd");
-    String name = req.getParameter("name");
+		String cd = req.getParameter("cd");
+		String name = req.getParameter("name");
 
-    Map<String, String> errors = new HashMap<>();
+		Map<String, String> errors = new HashMap<>();
 
-    if (name == null || name.isEmpty()) {
-      errors.put("name", "科目名を入力してください");
-    }
+		if (name == null || name.isEmpty()) {
+			errors.put("name", "科目名を入力してください");
+		}
 
-    if (errors.isEmpty()) {
-      Subject subject = new Subject();
-      subject.setCd(cd);
-      subject.setName(name);
-      subject.setSchool(teacher.getSchool());
+		if (errors.isEmpty()) {
+			Subject subject = new Subject();
+			subject.setCd(cd);
+			subject.setName(name);
+			subject.setSchool(teacher.getSchool());
 
-      SubjectDao subjectDao = new SubjectDao();
-      subjectDao.save(subject);
+			SubjectDao subjectDao = new SubjectDao();
+			subjectDao.save(subject);
 
-      req.getRequestDispatcher("subject_update_done.jsp").forward(req, res);
-    } else {
-      req.setAttribute("errors", errors);
-      req.setAttribute("cd", cd);
-      req.setAttribute("name", name);
+			req.getRequestDispatcher("subject_update_done.jsp").forward(req, res);
+		} else {
+			req.setAttribute("errors", errors);
+			req.setAttribute("cd", cd);
+			req.setAttribute("name", name);
 
-      req.getRequestDispatcher("subject_update.jsp").forward(req, res);
-    }
-  }
+			req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+		}
+	}
 }
