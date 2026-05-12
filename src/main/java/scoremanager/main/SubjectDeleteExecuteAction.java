@@ -1,7 +1,5 @@
 package scoremanager.main;
 
-import java.util.List;
-
 import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDao;
@@ -10,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
-public class SubjectListAction extends Action {
+public class SubjectDeleteExecuteAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -18,12 +16,15 @@ public class SubjectListAction extends Action {
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
 
+        String cd = req.getParameter("cd");
+
         SubjectDao subjectDao = new SubjectDao();
+        Subject subject = subjectDao.get(cd, teacher.getSchool());
 
-        List<Subject> subjects = subjectDao.filter(teacher.getSchool());
+        if (subject != null) {
+            subjectDao.delete(subject);
+        }
 
-        req.setAttribute("subjects", subjects);
-
-        req.getRequestDispatcher("subject_list.jsp").forward(req, res);
+        req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
     }
 }
