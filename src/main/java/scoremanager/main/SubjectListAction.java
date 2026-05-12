@@ -1,5 +1,7 @@
 package scoremanager.main;
 
+import java.util.List;
+
 import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDao;
@@ -8,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
-public class SubjectUpdateAction extends Action {
+public class SubjectListAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -16,19 +18,12 @@ public class SubjectUpdateAction extends Action {
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
 
-        String cd = req.getParameter("cd");
-
         SubjectDao subjectDao = new SubjectDao();
-        Subject subject = subjectDao.get(cd, teacher.getSchool());
 
-        if (subject == null) {
-            req.getRequestDispatcher("SubjectList.action").forward(req, res);
-            return;
-        }
+        List<Subject> subjects = subjectDao.filter(teacher.getSchool());
 
-        req.setAttribute("cd", subject.getCd());
-        req.setAttribute("name", subject.getName());
+        req.setAttribute("subjects", subjects);
 
-        req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+        req.getRequestDispatcher("subject_list.jsp").forward(req, res);
     }
 }

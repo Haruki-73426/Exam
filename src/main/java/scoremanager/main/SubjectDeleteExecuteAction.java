@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
-public class SubjectUpdateAction extends Action {
+public class SubjectDeleteExecuteAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -21,14 +21,10 @@ public class SubjectUpdateAction extends Action {
         SubjectDao subjectDao = new SubjectDao();
         Subject subject = subjectDao.get(cd, teacher.getSchool());
 
-        if (subject == null) {
-            req.getRequestDispatcher("SubjectList.action").forward(req, res);
-            return;
+        if (subject != null) {
+            subjectDao.delete(subject);
         }
 
-        req.setAttribute("cd", subject.getCd());
-        req.setAttribute("name", subject.getName());
-
-        req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+        req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
     }
 }

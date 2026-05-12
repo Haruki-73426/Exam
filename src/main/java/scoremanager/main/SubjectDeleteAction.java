@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
-public class SubjectUpdateAction extends Action {
+public class SubjectDeleteAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -29,6 +29,6 @@ public class SubjectUpdateAction extends Action {
         req.setAttribute("cd", subject.getCd());
         req.setAttribute("name", subject.getName());
 
-        req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+        req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
     }
 }
